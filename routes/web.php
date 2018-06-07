@@ -12,13 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/table', function() {
     return view('table');
 });
 
-Route::get('/menu', function() {
-    return view('menu');
+Route::get('/table/{room_no}', function($room_no) {
+    return view('menu',['room_no' => $room_no]);
 });
+

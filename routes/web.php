@@ -19,3 +19,8 @@ Route::get('/table/{room_no}', function($room_no) {
     return view('menu',['room_no' => $room_no]);
 });
 
+Route::get('/admin', function () {
+    return view('admin');
+});
+
+Route::get('/getMenu','MenuController@getMenu');

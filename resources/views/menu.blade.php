@@ -14,7 +14,7 @@
     @include('top')
     <div id="div" style="text-align: center">{{$room_no}}번방</div><br><hr>
     <div style="float: left; width: 70%">
-        <table class="table-bordered" id="menutable">
+        <table class="table-bordered">
             <thead align="center">
                 <tr>
                     <td colspan="5">메뉴판</td>
@@ -25,53 +25,67 @@
                 <td width="20%">갯수</td>
                 <td width="20%">취소</td>
             </tr>
-            <tbody align="center" id="tbody">
-                <tr id="tr"></tr>
+        </table>
+        <table class="table-bordered" id="menutable">
+            <tbody id="tbody">
+                <tr id="tr">
+                    <td id="name" width="1000px"></td>
+                    <td id="count" width="20%"></td>
+                    <td width="20%"></td>
+                </tr>
             </tbody>
             <tfoot>
-                <tr>
-                    <td colspan="3" id="total_price" style="text-align: center;">원</td>
-                </tr>
+            <tr>
+                <td colspan="3" id="total_price" style="text-align: center;">원</td>
+            </tr>
             </tfoot>
         </table>
     </div>
     <div style="float: right; width: 30%;" id="MenuButton">
     </div>
+    <button class="btn btn-success" value="clear" onclick="clear()">세션 지우기</button>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+    var table_menu = {
+    'table_no' : '{{$room_no}}',
+    };
     var total_price = 0;
-    var menu_table = $('#menutable');
     $(document).ready(function () {
         $.get('/getMenu',null,function (res) {
             for(var i = 0; i < res.length; i++) {
                 $('#MenuButton').append('<button class="btn btn-success" style="width: 150px; height: 150px;" value="' + res[i]['name'] + '" onclick="add_row(value,' + res[i]['price'] + ')">' + res[i]['name'] + '</button>')
             }
+            sessionStorage.clear();
         })
     });
 
     function add_row(name,price) {
-        console.log(total_price);
-        for (var i = 0; i < menu_table.rows.length; i++) {
-            for(var j = 0; j < menu_table.cells.length; j++) {
-                if (menu_table.rows[i].cells[j].innerHTML == name) {
-                    console.log("있습니다.");
-                }
-                else {
-                    continue;
+        var table = $("#menutable");
+        if (sessionStorage.getItem(name + '_count') != null && sessionStorage.getItem(name + '_count') != 0) {
+            sessionStorage.setItem(name + '_count',Number(sessionStorage.getItem(name + '_count')) + 1);
+            table_menu[name] = sessionStorage.getItem(name + '_count');
+            for (var i = 0, row; row = table.rows[i]; i++) {
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    console.log(col[j]);
                 }
             }
+        } else if (sessionStorage.getItem(name + '_count') == null || sessionStorage.getItem(name + '_count') == 0) {
+            sessionStorage.setItem(name + '_count', 1);
+            sessionStorage.setItem('total', total_price);
+            var tbody   = document.getElementById('tbody');
+            var row     = tbody.insertRow(tbody.rows.length);
+            var cell0  = row.insertCell(0);
+            var cell1  = row.insertCell(1);
+            var cell2  = row.insertCell(2);
+            cell0.innerHTML = name;
+            cell1.innerHTML = sessionStorage.getItem(name + '_count');
+            cell2.innerHTML = '<button class="btn-danger">메뉴취소</button>';
+            total_price += price;
+            document.getElementById('total_price').innerHTML = total_price + ' 원';
+            table_menu[name] = 1;
+            console.log(table_menu);
         }
-        var tbody   = document.getElementById('tbody');
-        var row     = tbody.insertRow(tbody.rows.length);
-        var cell0  = row.insertCell(0);
-        var cell1  = row.insertCell(1);
-        var cell2  = row.insertCell(2);
-        cell0.innerHTML = name;
-        cell1.innerHTML = 1;
-        cell2.innerHTML = '<button class="btn-danger">메뉴취소</button>';
-        total_price += price;
-        document.getElementById('total_price').innerHTML = total_price + ' 원';
     }
 </script>
 </html>

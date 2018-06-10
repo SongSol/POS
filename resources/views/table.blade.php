@@ -15,7 +15,7 @@
     <div style="float: left; width: 33%; line-height: 1.3em;">
         작은 방<br>
         <table><tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(1)">1번</button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(1)" id="1">1번</button></td>
                 <td><button class="btn-lg btn-success" onclick="toMenu(2)">2번</button></td>
                 <td><button class="btn-lg btn-success" onclick="toMenu(3)">3번</button></td>
             </tr>
@@ -55,9 +55,14 @@
     </div>
 </body>
 <script src="js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
     function toMenu(room_no) {
         location.replace('/table/' + room_no);
     }
+
+    $(document).ready(function () {
+        console.log(sessionStorage.getItem())
+    })
 </script>
 </html>

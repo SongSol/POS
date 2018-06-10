@@ -24,3 +24,5 @@ Route::get('/admin', function () {
 });
 
 Route::get('/getMenu','MenuController@getMenu');
+
+Route::post('/regOrder','TableController@regOrder');

@@ -22,7 +22,3 @@ Route::get('/table/{room_no}', function($room_no) {
 Route::get('/admin', function () {
     return view('admin');
 });
-
-Route::get('/getMenu','MenuController@getMenu');
-
-Route::post('/regOrder','TableController@regOrder');

@@ -13,7 +13,6 @@
 <body>
     @include('top')
     <div id="div" style="text-align: center">{{$room_no}}번방</div><br><hr>
-    {!! csrf_field() !!}
     <div style="float: left; width: 70%">
         <table class="table-bordered">
             <thead align="center">
@@ -47,12 +46,15 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-    var table_menu = {
-    'table_no' : '{{$room_no}}',
+    var table_no = '{{$room_no}}';
+    var table_menu = {'{{$room_no}}' : {
+        }
     };
     var total_price = 0;
     $(document).ready(function () {
-        $.get('/getMenu',null,function (res) {
+        console.log(table_no);
+        console.log(table_menu);
+        $.get('/api/getMenu',null,function (res) {
             for(var i = 0; i < res.length; i++) {
                 $('#MenuButton').append('<button class="btn btn-success" style="width: 150px; height: 150px;" value="' + res[i]['name'] + '" onclick="add_row(value,' + res[i]['price'] + ')">' + res[i]['name'] + '</button>')
             }
@@ -65,9 +67,10 @@
         var table = $("#menutable");
         if (sessionStorage.getItem(name + '_count') != null && sessionStorage.getItem(name + '_count') != 0) {
             sessionStorage.setItem(name + '_count',Number(sessionStorage.getItem(name + '_count')) + 1);
-            table_menu[name] = sessionStorage.getItem(name + '_count');
-            document.getElementById(name + '_count').innerHTML = table_menu[name];
-
+            table_menu['{{$room_no}}'][name] = sessionStorage.getItem(name + '_count');
+            document.getElementById(name + '_count').innerHTML = table_menu['{{$room_no}}'][name];
+            total_price += price;
+            document.getElementById('total_price').innerHTML = total_price + ' 원';
         } else if (sessionStorage.getItem(name + '_count') == null || sessionStorage.getItem(name + '_count') == 0) {
             sessionStorage.setItem(name + '_count', 1);
             sessionStorage.setItem('total', total_price);
@@ -81,15 +84,15 @@
             cell2.innerHTML = '<button class="btn-danger">메뉴취소</button>';
             total_price += price;
             document.getElementById('total_price').innerHTML = total_price + ' 원';
-            table_menu[name] = 1;
+            table_menu['{{$room_no}}'][name] = 1;
             console.log(table_menu);
         }
     }
-
     function order() {
-        $.post("/regOrder",table_menu,function (data) {
+        sessionStorage.setItem(1,table_menu);
+        $.post('/api/regOrder',table_menu,function (data) {
             console.log(data);
-        });
+        })
     }
 </script>
 </html>

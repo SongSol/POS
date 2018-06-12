@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Table;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class TableController extends Controller
 {
@@ -14,7 +15,9 @@ class TableController extends Controller
     }
 
     public function regOrder(Request $request) {
-        /*return response()->json($request);*/
-        return "dfdf";
+        /*foreach ($request[$request->keys()[0]] as $key=>$value) {
+            $this->table_info->regOrder($request->keys()[0],$key,$value);
+        }*/
+        return $request[$request->keys()[0]];
     }
 }

@@ -62,7 +62,7 @@
     }
 
     $(document).ready(function () {
-        console.log(sessionStorage.getItem())
+        console.log(sessionStorage.getItem(1));
     })
 </script>
 </html>

@@ -15,9 +15,15 @@ class TableController extends Controller
     }
 
     public function regOrder(Request $request) {
-        /*foreach ($request[$request->keys()[0]] as $key=>$value) {
-            $this->table_info->regOrder($request->keys()[0],$key,$value);
-        }*/
-        return $request[$request->keys()[0]];
+        $order = json_decode($request->get('order'));
+        $this->table_info->delOrder($request->get('table_no'));
+        foreach ($order as $key=>$value) {
+            $this->table_info->regOrder($request->get('table_no'),$key,$value);
+        }
+        return 'true';
+    }
+
+    public function getOrder($table_no) {
+        return response()->json($this->table_info->getOrder($table_no));
     }
 }

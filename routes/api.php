@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/getMenu','MenuController@getMenu');
 
 Route::post('/regOrder','TableController@regOrder');
+
+Route::get('/getOrder/{table_no}','TableController@getOrder');

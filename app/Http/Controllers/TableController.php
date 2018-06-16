@@ -18,7 +18,10 @@ class TableController extends Controller
         $order = json_decode($request->get('order'));
         $this->table_info->delOrder($request->get('table_no'));
         foreach ($order as $key=>$value) {
-            $this->table_info->regOrder($request->get('table_no'),$key,$value);
+            if ($value == 0)
+                continue;
+            else
+                $this->table_info->regOrder($request->get('table_no'),$key,$value);
         }
         return 'true';
     }

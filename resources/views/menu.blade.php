@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -12,6 +13,20 @@
 </head>
 <body>
     @include('top')
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    계산
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body" align="center">
+                    <button class="btn btn-success" style="width: 150px; height: 150px;" onclick="payment('cash')">현금</button>
+                    <button class="btn btn-danger" style="width: 150px; height: 150px;" onclick="payment('card')">카드</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="div" style="text-align: center">{{$room_no}}번방</div><br><hr>
     <div style="float: left; width: 70%">
         <table class="table-bordered">
@@ -44,10 +59,8 @@
     <div style="float: right; width: 30%;" id="MenuButton">
     </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
     var menuArray = new Array();
-    var table_no = '{{$room_no}}';
     var orderArray = {};
     var total_price = 0;
     $(document).ready(function () {
@@ -58,7 +71,7 @@
                 var menuInfo = new Object();
                 menuArray[res[i]['name']] = res[i]['price'];
             }
-            $('#MenuButton').append('<br><button class="btn btn-info" style="width: 150px; height: 150px;" onclick="order()">주문완료</button><button class="btn btn-danger" style="width: 150px; height: 150px;" onclick="">계산</button>');
+            $('#MenuButton').append('<br><button class="btn btn-info" style="width: 150px; height: 150px;" onclick="order()">주문완료</button><button type="button" class="btn btn-danger" style="width: 150px; height: 150px;" data-toggle="modal" data-target="#modal">계산</button>');
         })
         $.get('/api/getOrder/' + '{{$room_no}}',null,function (res) {
             for(var i = 0; i < res.length; i++) {
@@ -107,17 +120,19 @@
     }
     function order() {
         sessionStorage.setItem('{{$room_no}}',JSON.stringify(orderArray));
-        console.log(orderArray);
         $.ajax({
             type:'POST',
             url:'/api/regOrder',
             dataType: 'json',
             data: {
-                'order':orderArray,
+                'order':JSON.stringify(orderArray),
                 'table_no':'{{$room_no}}'
             },
             success:function (data) {
-                console.log(data);
+                if (data == true) {
+                    alert("주문 완료");
+                    window.location.href='/table';
+                }
             },
             error:function (error) {
                 console.log(error);
@@ -132,14 +147,28 @@
         total_price -= menuArray[name.id];
         document.getElementById('total_price').innerHTML = total_price + ' 원';
         if (orderArray[name.id] == 0) {
-            sessionStorage.setItem(name.id + '_count', 0);
+            sessionStorage.removeItem(name.id + '_count');
             $(name).parent().parent().remove();
         }
 
     }
+
     function home() {
         console.log(sessionStorage.getItem(1));
         location.href='/table';
+    }
+
+    function payment(method) {
+        $.post('/api/payment',{
+            'table_no':'{{$room_no}}',
+            'method':method,
+            'total_price':total_price
+        }, function (data) {
+            if (data == 'true') {
+                alert("계산 완료");
+                window.location.href='/table';
+            }
+        })
     }
 </script>
 </html>

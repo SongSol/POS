@@ -25,7 +25,7 @@
     function locale (){
         return new Date().toLocaleString();
     }
-    setInterval ( function() { document.getElementById("clock").innerHTML = locale(); } , 1000 );
+    /*setInterval ( function() { document.getElementById("clock").innerHTML = locale(); } , 1000 );*/
 
     $.ready(
         $.get('/api/todayProfit/' + today,null,function (data) {

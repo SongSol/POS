@@ -29,4 +29,8 @@ class TableController extends Controller
     public function getOrder($table_no) {
         return response()->json($this->table_info->getOrder($table_no));
     }
+
+    public function getAllOrder() {
+        return response()->json($this->table_info->getAllOrder());
+    }
 }

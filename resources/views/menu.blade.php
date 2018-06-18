@@ -154,7 +154,6 @@
     }
 
     function home() {
-        console.log(sessionStorage.getItem(1));
         location.href='/table';
     }
 

@@ -23,4 +23,8 @@ class Table extends Model
     public function getOrder($table_no) {
         return Table::select('name','count')->where('table_no',$table_no)->get();
     }
+
+    public function getAllOrder() {
+        return Table::all();
+    }
 }

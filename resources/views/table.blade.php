@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <title> @yield('title')</title>
 </head>
@@ -15,33 +16,37 @@
     <div style="float: left; width: 33%; line-height: 1.3em;">
         작은 방<br>
         <table><tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(1)" style="width: 150px; height: 150px;">1번<br>
-                    <table>
-                        <tbody id="tbody_1">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(2)" style="width: 150px; height: 150px;" id="2">2번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(1)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_2">
-                            <tr>
+                            <thead>1번</thead>
+                            <tbody id="tbody1" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                    </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(3)" style="width: 150px; height: 150px;" id="3">3번<br>
+                        </table></button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(2)" style="width: 160px; height: 160px;" id="2">
                         <table>
-                            <tbody id="tbody_3">
-                            <tr>
+                            <thead>2번</thead>
+                            <tbody id="tbody2" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                    </table></button></td></button></td>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(3)" style="width: 160px; height: 160px;" id="3">
+                        <table>
+                            <thead>3번</thead>
+                            <tbody id="tbody3" style="font-size: 10pt">
+                            <tr id="row" align="center">
+                                <td></td>
+                                <td style="width: 50%;"></td>
+                            </tr>
+                            </tbody>
+                        </table></button></td>
             </tr>
         </table>
     </div>
@@ -49,82 +54,98 @@
         홀<br>
         <table>
             <tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(4)" style="width: 150px; height: 150px;" id="4">4번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(4)" style="width: 160px; height: 160px;" id="4">
                         <table>
-                            <tbody id="tbody_4">
-                            <tr>
+                            <thead>4번</thead>
+                            <tbody id="tbody4" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                    </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(5)" style="width: 150px; height: 150px;" id="5">5번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(5)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_5">
-                            <tr>
+                            <thead>5번</thead>
+                            <tbody id="tbody5" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                    </table></button></td></button></td>
+                        </table>
+                    </button></td>
             </tr>
             <tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(6)" style="width: 150px; height: 150px;" id="6">6번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(6)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_6">
-                            <tr>
+                            <thead>6번</thead>
+                            <tbody id="tbody6" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                    </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(7)" style="width: 150px; height: 150px;" id="6">7번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(7)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_7">
-                            <tr>
+                            <thead>7번</thead>
+                            <tbody id="tbody7" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(8)" style="width: 150px; height: 150px;" id="6">8번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(8)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_8">
-                            <tr>
+                            <thead>8번</thead>
+                            <tbody id="tbody8" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
+                        </table>
+                    </button></td>
             </tr>
             <tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(9)" style="width: 150px; height: 150px;" id="6">9번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(9)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_9">
-                            <tr>
+                            <thead>9번</thead>
+                            <tbody id="tbody9" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(10)" style="width: 150px; height: 150px;" id="6">10번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(10)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_10">
-                            <tr>
+                            <thead>10번</thead>
+                            <tbody id="tbody10" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(11)" style="width: 150px; height: 150px;" id="6">11번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(11)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_11">
-                            <tr>
+                            <thead>11번</thead>
+                            <tbody id="tbody11" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
+                        </table>
+                    </button></td>
             </tr>
         </table>
     </div>
@@ -132,65 +153,80 @@
         큰 방<br>
         <table>
             <tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(12)" style="width: 150px; height: 150px;" id="6">12번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(12)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_12">
-                            <tr>
+                            <thead>12번</thead>
+                            <tbody id="tbody12" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(13)" style="width: 150px; height: 150px;" id="6">13번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(13)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_13">
-                            <tr>
+                            <thead>13번</thead>
+                            <tbody id="tbody13" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
+                        </table>
+                    </button></td>
             </tr>
             <tr>
-                <td><button class="btn-lg btn-success" onclick="toMenu(14)" style="width: 150px; height: 150px;" id="6">14번<br>
+                <td><button class="btn-lg btn-success" onclick="toMenu(14)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_14">
-                            <tr>
+                            <thead>14번</thead>
+                            <tbody id="tbody14" style="font-size: 10pt">
+                            <tr id="row" align="center">
                                 <td></td>
-                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
-                <td><button class="btn-lg btn-success" onclick="toMenu(15)" style="width: 150px; height: 150px;" id="6">15번<br>
+                        </table>
+                    </button></td>
+                <td><button class="btn-lg btn-success" onclick="toMenu(15)" style="width: 160px; height: 160px;">
                         <table>
-                            <tbody id="tbody_15">
-                            <tr>
+                            <thead>15번</thead>
+                            <tbody id="tbody15" style="font-size: 10pt">
+                            <tr id="row" align="center">
+                                <td></td>
+                                <td style="width: 50%;"></td>
                             </tr>
                             </tbody>
-                        </table></button></td></button></td>
+                        </table>
+                    </button></td>
             </tr>
         </table>
     </div>
 </body>
-<script src="js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
     function toMenu(room_no) {
         location.replace('/table/' + room_no);
     }
     $(document).ready(function () {
-        for(var i = 1; i < 15; i++) {
-            $.get('/api/getOrder/' + i,null,function (data) {
-                var tbody = document.getElementById('tbody_' + i);
-                var row = tbody.insertRow(tbody.rows.length);
-                for (var j = 0; j < data.length; j++) {
-                    var cell0  = row.insertCell(0);
-                    var cell1  = row.insertCell(1);
-                    cell0.innerHTML = data[j]['name'];
-                    cell1.innerHTML = data[j]['count'];
-                }
-            })
-        }
-    })
+        $.get('/api/getAllOrder',null,function (data) {
+            console.log(data);
+            for(var i = 0; i < data.length; i++) {
+                var tbody   = document.getElementById('tbody' + data[i]['table_no']);
+                var row     = tbody.insertRow(tbody.rows.length);
+                var cell0   = row.insertCell(0);
+                var cell1   = row.insertCell(1);
+                cell0.innerHTML = data[i]['name'];
+                cell1.innerHTML = data[i]['count'];
+            }
+        });
+    });
+    $(document).ready(function(){
+        $('selector').css('width', $(window).width());
+        $('selector').css('height', $(window).height());
+        $(window).resize(function() {
+            $('selector').css('width', $(window).width());
+            $('selector').css('height', $(window).height());
+        });
+    });
 </script>
 </html>

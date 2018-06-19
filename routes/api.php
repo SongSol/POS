@@ -25,10 +25,10 @@ Route::get('/getOrder/{table_no}','TableController@getOrder');
 
 Route::post('/payment','ProfitController@payment');
 
-Route::get('/todayProfit/{date}','ProfitController@todayProfit');
+Route::get('/getProfit/{date}','ProfitController@getProfit');
 
 Route::get('/getAllOrder','TableController@getAllOrder');
 
 Route::post('/regMenu','MenuController@regMenu');
 
-Route::get('/close/{profit}','ProfitController@close');
+Route::get('/getAllProfit','ProfitController@getAllProfit');

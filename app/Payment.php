@@ -11,4 +11,8 @@ class Payment extends Model
     public function regPay(Array $regInfo) {
         Payment::insert($regInfo);
     }
+
+    public function getAllProfit() {
+        return Payment::select('total_price','pay_time')->get();
+    }
 }

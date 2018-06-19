@@ -25,8 +25,7 @@ class ProfitController extends Controller
             'table_no'      => $request->get('table_no'),
             'total_price'   => $request->get('total_price'),
             'pay_type'      => $request->get('method'),
-            'created_at' => Carbon::now()->format('Y-m-d H:i'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i')
+            'pay_time'      => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         $this->payment->regPay($payInfo);
         $this->table_info->delOrder($request->get('table_no'));
@@ -34,13 +33,12 @@ class ProfitController extends Controller
         return 'true';
     }
 
-    public function todayProfit($date) {
-        $result = Payment::select('total_price')->where('created_at','like',$date.'%')->get();
-        $todayProfit = 0;
+    public function getProfit($date) {
+        $result = Payment::where('pay_time','like',$date.'%')->orderBy('pay_time','asc')->get();
+        return response()->json($result);
+    }
 
-        for ($i = 0; $i < count($result); $i++) {
-            $todayProfit += $result[$i]['total_price'];
-        }
-        return $todayProfit;
+    public function getAllProfit() {
+        return response()->json($this->payment->getAllProfit());
     }
 }

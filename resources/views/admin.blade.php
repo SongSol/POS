@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 @include('top')
@@ -45,29 +44,27 @@
     </div>
 </div>
 <!--End AdminMenu Modal-->
-<!--Profit Modal-->
-<div class="modal fade" id="profit" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">매출 현황</h4>
-            </div>
-            <div class="modal-body">
-                <div class="modal-body">
+<!--Calendar-->
 
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Profit Modal-->
+<table id="calendar" class="table" border="1">
+    <tr align="center">
+        <td onclick="prevCalendar()"><label><</label></td>
+        <td colspan="5" id="calendarYM">yyyy년 m월</td>
+        <td><label onclick="nextCalendar()">></label></td>
+    </tr>
+    <tr align="center">
+        <td>일</td>
+        <td>월</td>
+        <td>화</td>
+        <td>수</td>
+        <td>목</td>
+        <td>금</td>
+        <td>토</td>
+    </tr>
+</table>
+<!--End Calendar-->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adminMenu" onclick="getMenu(); this.onclick=null;">메뉴 관리</button>
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#profit">매출 현황</button>
+<button type="button" class="btn btn-success" onclick="showCalendar()">새로고침</button>
 
 <script>
     function getMenu() {
@@ -135,6 +132,47 @@
             }
         )
     }
+
+    <!-- Calendar -->
+    var today = new Date();
+
+    function prevCalendar() {
+        today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        showCalendar();
+    }
+
+    function nextCalendar() {
+        today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        showCalendar();
+    }
+
+    function showCalendar () {
+        var startDay    = new Date(today.getFullYear(), today.getMonth(), 1);
+        var lastDay     = new Date(today.getFullYear(),today.getMonth() + 1, 0);
+        var calendar    = document.getElementById('calendar');
+        var calendarYM  = document.getElementById('calendarYM');
+        calendarYM.innerHTML = today.getFullYear() + "년" + (today.getMonth() + 1) + "월";
+
+        while(calendar.rows.length > 2) {
+            calendar.deleteRow(calendar.rows.length - 1);
+        }
+
+        var row = null;
+        row = calendar.insertRow();
+        var cnt = 0;
+        var cell = null;
+        for (var i = 0; i < startDay.getDay(); i++,cnt++) {
+            cell = row.insertCell();
+        }
+        for (var i = 1; i < lastDay.getDate() + 1; i++,cnt++) {
+            cell = row.insertCell();
+            cell.innerHTML = i;
+            if (cnt % 7 == 0)
+                row = calendar.insertRow();
+        }
+    }
+
+
 </script>
 </body>
 </html>

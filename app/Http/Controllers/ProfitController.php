@@ -11,13 +11,11 @@ use App\Http\Controllers\Controller;
 
 class ProfitController extends Controller
 {
-    private $profit     = null;
     private $payment    = null;
     private $table_info = null;
 
     public function __construct()
     {
-        $this->profit     = new Profit();
         $this->payment    = new Payment();
         $this->table_info = new Table();
     }
@@ -43,7 +41,6 @@ class ProfitController extends Controller
         for ($i = 0; $i < count($result); $i++) {
             $todayProfit += $result[$i]['total_price'];
         }
-
         return $todayProfit;
     }
 }
